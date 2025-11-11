@@ -19,7 +19,7 @@ public class Game implements IGame {
     private Integer countHits;
     private Integer countSinks;
 
-
+//7
     /**
      * @param fleet
      */
