@@ -10,7 +10,7 @@ public class Position implements IPosition {
     private int column;
     private boolean isOccupied;
     private boolean isHit;
-
+//teste
     /**
      *
      */
