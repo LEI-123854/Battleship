@@ -7,6 +7,7 @@ public class AppTest {
 
     @Test
     void testApp() {
+        // Teste simples
         assertTrue(true);
     }
 }
