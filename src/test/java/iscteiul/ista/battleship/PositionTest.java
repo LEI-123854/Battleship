@@ -1,10 +1,11 @@
 package iscteiul.ista.battleship;
+import org.junit.jupiter.api.DisplayName;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+//a
 class PositionTest {
 
     private Position p1;
@@ -34,40 +35,63 @@ class PositionTest {
     }
 
     @Test
-    void testEquals_SameObject() {
-        assertTrue(p1.equals(p1), "Um objeto deve ser igual a si mesmo");
+    @DisplayName("Deve comparar igualdade corretamente (cobertura total)")
+    void testEquals() {
+        Position position = new Position(2, 3); // ← adiciona esta linha
+        Position same = new Position(2, 3);
+        Position differentRow = new Position(1, 3);
+        Position differentColumn = new Position(2, 4);
+        Object unrelated = new Object();
+
+        assertAll("Testes de igualdade",
+                () -> assertTrue(position.equals(position), "Um objeto deve ser igual a si próprio"),
+                () -> assertTrue(position.equals(same), "Mesmas coordenadas devem ser iguais"),
+                () -> assertFalse(position.equals(differentRow), "Linhas diferentes não devem ser iguais"),
+                () -> assertFalse(position.equals(differentColumn), "Colunas diferentes não devem ser iguais"),
+                () -> assertFalse(position.equals(null), "Não deve ser igual a null"),
+                () -> assertFalse(position.equals(unrelated), "Não deve ser igual a um tipo não relacionado")
+        );
     }
 
     @Test
-    void testEquals_DifferentObjectSameCoords() {
-        Position p3 = new Position(3, 5);
-        assertTrue(p1.equals(p3), "Posições com mesma linha e coluna devem ser iguais");
+    void isAdjacentTo() {
+        Position center = new Position(3, 3);
+
+        // ➤ Mesma posição (deve ser adjacente a si mesma)
+        assertTrue(center.isAdjacentTo(new Position(3, 3)),
+                "Uma posição deve ser adjacente a si mesma");
+
+        // ➤ Adjacentes horizontais
+        assertTrue(center.isAdjacentTo(new Position(3, 2)),
+                "Posição imediatamente à esquerda deve ser adjacente");
+        assertTrue(center.isAdjacentTo(new Position(3, 4)),
+                "Posição imediatamente à direita deve ser adjacente");
+
+        // ➤ Adjacentes verticais
+        assertTrue(center.isAdjacentTo(new Position(2, 3)),
+                "Posição acima deve ser adjacente");
+        assertTrue(center.isAdjacentTo(new Position(4, 3)),
+                "Posição abaixo deve ser adjacente");
+
+        // ➤ Adjacentes diagonais
+        assertTrue(center.isAdjacentTo(new Position(2, 2)),
+                "Posição na diagonal superior esquerda deve ser adjacente");
+        assertTrue(center.isAdjacentTo(new Position(2, 4)),
+                "Posição na diagonal superior direita deve ser adjacente");
+        assertTrue(center.isAdjacentTo(new Position(4, 2)),
+                "Posição na diagonal inferior esquerda deve ser adjacente");
+        assertTrue(center.isAdjacentTo(new Position(4, 4)),
+                "Posição na diagonal inferior direita deve ser adjacente");
+
+        // ➤ Não adjacentes (distância maior que 1)
+        assertFalse(center.isAdjacentTo(new Position(5, 3)),
+                "Posição duas linhas abaixo não deve ser adjacente");
+        assertFalse(center.isAdjacentTo(new Position(3, 5)),
+                "Posição duas colunas à direita não deve ser adjacente");
+        assertFalse(center.isAdjacentTo(new Position(5, 5)),
+                "Posição diagonal distante não deve ser adjacente");
     }
 
-    @Test
-    void testEquals_DifferentCoords() {
-        assertFalse(p1.equals(p2), "Posições diferentes não devem ser iguais");
-    }
-
-    @Test
-    void testEquals_NullOrDifferentType() {
-        assertFalse(p1.equals(null), "Deve retornar falso para null");
-        assertFalse(p1.equals("string"), "Deve retornar falso para objetos de outro tipo");
-    }
-
-    @Test
-    void isAdjacentTo_TrueCases() {
-        // Posições diagonais ou vizinhas diretas são adjacentes
-        assertTrue(p1.isAdjacentTo(p2), "Posições diagonais devem ser adjacentes");
-        assertTrue(p1.isAdjacentTo(new Position(3, 6)), "Mesma linha, coluna adjacente deve ser adjacente");
-        assertTrue(p1.isAdjacentTo(new Position(2, 5)), "Mesma coluna, linha adjacente deve ser adjacente");
-    }
-
-    @Test
-    void isAdjacentTo_FalseCases() {
-        Position far = new Position(10, 10);
-        assertFalse(p1.isAdjacentTo(far), "Posições distantes não devem ser adjacentes");
-    }
 
     @Test
     void occupy() {
