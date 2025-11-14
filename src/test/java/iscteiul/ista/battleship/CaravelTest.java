@@ -9,50 +9,73 @@ class CaravelTest {
 
     @Test
     @DisplayName("Cria Caravel na direção NORTH corretamente")
-    void testCaravelCreationNorth() {
-        Compass bearing = Compass.NORTH;
-        IPosition pos = new Position(2, 3);
+    void testCaravelNorth() {
+        Caravel c = new Caravel(Compass.NORTH, new Position(2, 3));
 
-        Caravel caravel = new Caravel(bearing, pos);
+        assertEquals(2, c.getSize());
+        assertEquals("Caravela", c.getName());
+        assertEquals(Compass.NORTH, c.getBearing());
 
-        assertAll(
-                () -> assertEquals(2, caravel.getSize()),
-                () -> assertEquals("Caravela", caravel.getName()),
-                () -> assertEquals(bearing, caravel.getBearing()),
-                () -> assertEquals(2, caravel.getPositions().size()),
-                () -> {
-                    assertEquals(pos.getRow(), caravel.getPositions().get(0).getRow());
-                    assertEquals(pos.getColumn(), caravel.getPositions().get(0).getColumn());
-                    assertEquals(pos.getRow() + 1, caravel.getPositions().get(1).getRow());
-                    assertEquals(pos.getColumn(), caravel.getPositions().get(1).getColumn());
-                }
-        );
+        assertEquals(2, c.getPositions().size());
+        assertEquals(2, c.getPositions().get(0).getRow());
+        assertEquals(3, c.getPositions().get(0).getColumn());
+        assertEquals(3, c.getPositions().get(1).getRow());
+        assertEquals(3, c.getPositions().get(1).getColumn());
+    }
+
+    @Test
+    @DisplayName("Cria Caravel na direção SOUTH corretamente")
+    void testCaravelSouth() {
+        Caravel c = new Caravel(Compass.SOUTH, new Position(1, 1));
+
+        assertEquals(2, c.getPositions().size());
+        assertEquals(1, c.getPositions().get(0).getRow());
+        assertEquals(1, c.getPositions().get(0).getColumn());
+        assertEquals(2, c.getPositions().get(1).getRow());
+        assertEquals(1, c.getPositions().get(1).getColumn());
+    }
+
+    @Test
+    @DisplayName("Cria Caravel na direção EAST corretamente")
+    void testCaravelEast() {
+        Caravel c = new Caravel(Compass.EAST, new Position(4, 4));
+
+        assertEquals(2, c.getPositions().size());
+        assertEquals(4, c.getPositions().get(0).getRow());
+        assertEquals(4, c.getPositions().get(0).getColumn());
+        assertEquals(4, c.getPositions().get(1).getRow());
+        assertEquals(5, c.getPositions().get(1).getColumn());
+    }
+
+    @Test
+    @DisplayName("Cria Caravel na direção WEST corretamente")
+    void testCaravelWest() {
+        Caravel c = new Caravel(Compass.WEST, new Position(7, 7));
+
+        assertEquals(2, c.getPositions().size());
+        assertEquals(7, c.getPositions().get(0).getRow());
+        assertEquals(7, c.getPositions().get(0).getColumn());
+        assertEquals(7, c.getPositions().get(1).getRow());
+        assertEquals(8, c.getPositions().get(1).getColumn());
     }
 
     @Test
     @DisplayName("Lança NullPointerException se bearing for null")
     void testCaravelNullBearing() {
-        IPosition pos = new Position(0, 0);
-        NullPointerException ex = assertThrows(NullPointerException.class, () -> new Caravel(null, pos));
-        assertTrue(ex.getMessage().contains("invalid bearing"));
+        NullPointerException ex =
+                assertThrows(NullPointerException.class,
+                        () -> new Caravel(null, new Position(0, 0)));
+
+        assertEquals("Bearing cannot be null", ex.getMessage());
     }
 
     @Test
     @DisplayName("Lança NullPointerException se posição for null")
     void testCaravelNullPosition() {
-        assertThrows(NullPointerException.class, () -> new Caravel(Compass.NORTH, null));
-    }
+        NullPointerException ex =
+                assertThrows(NullPointerException.class,
+                        () -> new Caravel(Compass.NORTH, null));
 
-    @Test
-    @DisplayName("Cria Caravel corretamente em todas as direções")
-    void testCaravelOtherDirections() {
-        IPosition pos = new Position(5, 5);
-        Caravel east = new Caravel(Compass.EAST, pos);
-        Caravel south = new Caravel(Compass.SOUTH, pos);
-        Caravel west = new Caravel(Compass.WEST, pos);
-
-        assertEquals(2, east.getPositions().size());
-        assertEquals(2, south.getPositions().size());
-        assertEquals(2, west.getPositions().size());
+        assertEquals("Position cannot be null", ex.getMessage());
     }
 }
