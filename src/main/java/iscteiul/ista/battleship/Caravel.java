@@ -1,21 +1,17 @@
-/**
- *
- */
 package iscteiul.ista.battleship;
 
 public class Caravel extends Ship {
     private static final Integer SIZE = 2;
     private static final String NAME = "Caravela";
 
-    /**
-     * @param bearing the bearing where the Caravel heads to
-     * @param pos     initial point for positioning the Caravel
-     */
-    public Caravel(Compass bearing, IPosition pos) throws NullPointerException, IllegalArgumentException {
+    public Caravel(Compass bearing, IPosition pos) {
         super(Caravel.NAME, bearing, pos);
 
         if (bearing == null)
-            throw new NullPointerException("ERROR! invalid bearing for the caravel");
+            throw new NullPointerException("invalid bearing");
+
+        if (pos == null)
+            throw new NullPointerException("position cannot be null");
 
         switch (bearing) {
             case NORTH:
@@ -29,19 +25,17 @@ public class Caravel extends Ship {
                     getPositions().add(new Position(pos.getRow(), pos.getColumn() + c));
                 break;
             default:
-                throw new IllegalArgumentException("ERROR! invalid bearing for the caravel");
+                throw new IllegalArgumentException("invalid bearing");
         }
-
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see battleship.Ship#getSize()
-     */
     @Override
     public Integer getSize() {
         return SIZE;
     }
 
+
+    public String getName() {
+        return NAME;
+    }
 }
