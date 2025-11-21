@@ -41,16 +41,16 @@ class CarrackTest {
     }
 
     @Test
-    @DisplayName("Lança NullPointerException se bearing for null")
+    @DisplayName("Lança AssertionError se bearing for null")
     void testNullBearing() {
-        assertThrows(NullPointerException.class,
+        assertThrows(AssertionError.class,
                 () -> new Carrack(null, new Position(0, 0)));
     }
 
     @Test
-    @DisplayName("Lança NullPointerException se pos for null")
+    @DisplayName("Lança AssertionError se pos for null")
     void testNullPosition() {
-        assertThrows(NullPointerException.class,
+        assertThrows(AssertionError.class,
                 () -> new Carrack(Compass.NORTH, null));
     }
 
