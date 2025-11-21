@@ -26,7 +26,8 @@ public class Game implements IGame {
     public Game(IFleet fleet) {
         shots = new ArrayList<>();
         countInvalidShots = 0;
-        countRepeatedShots = 0;
+        countRepeatedShots = 0;countHits = 0;       // inicializar
+        countSinks = 0;      // inicializar
         this.fleet = fleet;
     }
 
