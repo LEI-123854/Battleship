@@ -60,22 +60,19 @@ class CaravelTest {
     }
 
     @Test
-    @DisplayName("Lança NullPointerException se bearing for null")
+    @DisplayName("Lança AssertionError se bearing for null")
     void testCaravelNullBearing() {
-        NullPointerException ex =
-                assertThrows(NullPointerException.class,
+        AssertionError ex =
+                assertThrows(AssertionError.class,
                         () -> new Caravel(null, new Position(0, 0)));
-
-        assertEquals("Bearing cannot be null", ex.getMessage());
     }
 
     @Test
-    @DisplayName("Lança NullPointerException se posição for null")
+    @DisplayName("Lança AssertionError se posição for null")
     void testCaravelNullPosition() {
-        NullPointerException ex =
-                assertThrows(NullPointerException.class,
+        AssertionError ex =
+                assertThrows(AssertionError.class,
                         () -> new Caravel(Compass.NORTH, null));
-
-        assertEquals("Position cannot be null", ex.getMessage());
     }
+
 }

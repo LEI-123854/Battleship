@@ -211,6 +211,8 @@ class ShipTest {
             Ship.buildShip("nau", Compass.NORTH, null);
         });
     }
+
+
     @Test
     void getTopMostPos_DeveRetornarMenorLinhaEntreAsPosicoes() {
         // Mock ship com posições em diferentes linhas
@@ -302,6 +304,7 @@ class ShipTest {
         assertThrows(AssertionError.class, () -> shipCustom.tooCloseTo((IShip) null),
                 "Deve lançar AssertionError se o navio passado for null.");
     }
+
     @Test
     void shoot_DeveLancarAssertionErrorSePosicaoNula() {
         Ship shipCustom = new TestShip("teste", Compass.NORTH, new MockPosition(2, 3));
