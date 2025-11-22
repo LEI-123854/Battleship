@@ -20,7 +20,7 @@
     <maven.compiler.release>21</maven.compiler.release> <!-- usa o mesmo do teu workflow -->
   </properties>
 
-  <!-- Gerência de versões (JUnit BOM) -->
+  <!-- Gerência de versões (JUnit BOM). -->
   <dependencyManagement>
     <dependencies>
       <dependency>
