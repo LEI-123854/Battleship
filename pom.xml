@@ -20,7 +20,7 @@
     <maven.compiler.release>21</maven.compiler.release> <!-- usa o mesmo do teu workflow -->
   </properties>
 
-  <!-- Gerência de versões (JUnit BOM) -->
+  <!-- Gerência de versões (JUnit BOM). -->
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -53,6 +53,13 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-java-commons</artifactId>
+      <version>2.20.1</version>
+    </dependency>
+
   </dependencies>
 
   <build>
